@@ -16,7 +16,7 @@ import com.soywiz.korim.format.readBitmap
 import com.soywiz.korio.file.std.resourcesVfs
 import utils.Coordinates
 
-class Player(private val game: GameManager): Container() {
+class Player(private val game: GameManager) : Container() {
 
     private var status = Status.RUNNING
     private var speedFactor = 10.0
@@ -33,30 +33,30 @@ class Player(private val game: GameManager): Container() {
                 if (game.status == GameStatus.NOT_STARTED) {
                     game.start()
                 }
-                if(game.status == GameStatus.FINISHED) {
+                if (game.status == GameStatus.FINISHED) {
                     game.restart()
                 } else {
                     val dinoY = dino.y
-                    if(dinoY >= 200) {
+                    if (dinoY >= 200) {
                         status = Status.JUMPING_UP
                     }
 
                 }
             }
         }
-        dino.onCollision({it.name === "obstacle"}) {
+        dino.onCollision({ it.name === "obstacle" }) {
             game.finish()
             stopAnimation()
         }
         dino.addUpdater {
-            if(game.isRunning) {
+            if (game.isRunning) {
                 val coordinates = this@Player.getCoordinates(this.x, this.y)
                 dino.position(coordinates.x, coordinates.y)
             }
         }
     }
 
-    private suspend fun buildDino (): Sprite {
+    private suspend fun buildDino(): Sprite {
         val image = resourcesVfs["dino.png"].readBitmap()
         val walking = SpriteAnimation(
             spriteMap = image,
@@ -88,14 +88,14 @@ class Player(private val game: GameManager): Container() {
         when (status) {
             Status.JUMPING_UP -> {
                 y -= 1 * speedFactor
-                if(y <= yLimit) {
+                if (y <= yLimit) {
                     status = Status.JUMPING_DOWN
                 }
             }
 
             Status.JUMPING_DOWN -> {
                 y += 1 * speedFactor
-                if(y >= initialY) {
+                if (y >= initialY) {
                     status = Status.RUNNING
                 }
             }
@@ -104,7 +104,7 @@ class Player(private val game: GameManager): Container() {
             }
         }
 
-        return Coordinates(x,y)
+        return Coordinates(x, y)
     }
 
     enum class Status {

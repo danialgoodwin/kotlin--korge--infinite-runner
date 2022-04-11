@@ -14,7 +14,7 @@ class GameManager(private val container: Container) {
     private var message: Text? = null
     private var gameOverMessage: Text? = null
 
-    fun start(){
+    fun start() {
         isRunning = true
         status = GameStatus.RUNNING
     }
@@ -22,7 +22,7 @@ class GameManager(private val container: Container) {
     fun finish() {
         isRunning = false
         status = GameStatus.FINISHED
-        if(message == null && gameOverMessage == null) {
+        if (message == null && gameOverMessage == null) {
             displayGameOverMessage()
         }
     }

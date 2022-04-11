@@ -4,12 +4,12 @@ import com.soywiz.korinject.AsyncInjector
 
 suspend fun main() = Korge(Korge.Config(module = MainModule))
 
-object MainModule: Module() {
+object MainModule : Module() {
 
-	override  val mainScene = MainScene::class
+    override val mainScene = MainScene::class
 
-	override suspend fun AsyncInjector.configure() {
-		mapPrototype { MainScene() }
-	}
+    override suspend fun AsyncInjector.configure() {
+        mapPrototype { MainScene() }
+    }
 
 }
