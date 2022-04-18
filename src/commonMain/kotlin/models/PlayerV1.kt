@@ -14,9 +14,9 @@ import com.soywiz.korge.view.sprite
 import com.soywiz.korge.view.xy
 import com.soywiz.korim.format.readBitmap
 import com.soywiz.korio.file.std.resourcesVfs
-import utils.Coordinates
+import utils.CoordinatesV1
 
-class Player(private val game: GameManager) : Container() {
+class PlayerV1(private val game: GameManagerV1) : Container() {
 
     private var status = Status.RUNNING
     private var speedFactor = 10.0
@@ -30,10 +30,10 @@ class Player(private val game: GameManager) : Container() {
 
         keys {
             down(Key.SPACE) {
-                if (game.status == GameStatus.NOT_STARTED) {
+                if (game.status == GameStatusV1.NOT_STARTED) {
                     game.start()
                 }
-                if (game.status == GameStatus.FINISHED) {
+                if (game.status == GameStatusV1.FINISHED) {
                     game.restart()
                 } else {
                     val dinoY = dino.y
@@ -50,7 +50,7 @@ class Player(private val game: GameManager) : Container() {
         }
         dino.addUpdater {
             if (game.isRunning) {
-                val coordinates = this@Player.getCoordinates(this.x, this.y)
+                val coordinates = this@PlayerV1.getCoordinates(this.x, this.y)
                 dino.position(coordinates.x, coordinates.y)
             }
         }
@@ -81,7 +81,7 @@ class Player(private val game: GameManager) : Container() {
         dino.stopAnimation()
     }
 
-    private fun getCoordinates(startingX: Double, startingY: Double): Coordinates {
+    private fun getCoordinates(startingX: Double, startingY: Double): CoordinatesV1 {
         val x: Double = startingX
         var y: Double = startingY
 
@@ -104,7 +104,7 @@ class Player(private val game: GameManager) : Container() {
             }
         }
 
-        return Coordinates(x, y)
+        return CoordinatesV1(x, y)
     }
 
     enum class Status {

@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import utils.randomInRange
 
-class World(private val game: GameManager) : Container() {
+class WorldV1(private val game: GameManagerV1) : Container() {
 
     private var speedFactor: Double = 10.0
     private val originX = 1300.0
@@ -28,8 +28,8 @@ class World(private val game: GameManager) : Container() {
         val y = 320.0
         var floorX = 0.0
         for (i in 0..2) {
-            obstacles.add(Obstacle(obstacleX, y).create())
-            floor.add(FloorTile(floorX, floorY).create())
+            obstacles.add(ObstacleV1(obstacleX, y).create())
+            floor.add(FloorTileV1(floorX, floorY).create())
             obstacleX += 500
             floorX += 1200
         }
@@ -43,7 +43,7 @@ class World(private val game: GameManager) : Container() {
 
     private fun initializeUpdater() {
         addFixedUpdater(60.timesPerSecond) {
-            if (game.status == GameStatus.RESTARTED) {
+            if (game.status == GameStatusV1.RESTARTED) {
                 destroyWorld()
                 speedFactor = 10.0
             }
@@ -81,7 +81,7 @@ class World(private val game: GameManager) : Container() {
     private fun addObstacle() {
         if (game.isRunning) {
             GlobalScope.launch {
-                val newObstacle = Obstacle(originX + randomInRange(0.0, xSpacer), 320.0).create()
+                val newObstacle = ObstacleV1(originX + randomInRange(0.0, xSpacer), 320.0).create()
                 addChild(newObstacle)
                 obstacles.add(newObstacle)
             }
@@ -91,7 +91,7 @@ class World(private val game: GameManager) : Container() {
     private fun addFloorTile() {
         if (game.isRunning) {
             GlobalScope.launch {
-                val newFloor = FloorTile(1200.0, floorY).create()
+                val newFloor = FloorTileV1(1200.0, floorY).create()
                 addChild(newFloor)
                 floor.add(newFloor)
             }
@@ -99,8 +99,8 @@ class World(private val game: GameManager) : Container() {
     }
 
     private fun destroyWorld() {
-        obstacles.forEach { this@World.removeChild(it) }
-        floor.forEach { this@World.removeChild(it) }
+        obstacles.forEach { this@WorldV1.removeChild(it) }
+        floor.forEach { this@WorldV1.removeChild(it) }
         obstacles = mutableListOf()
         floor = mutableListOf()
         GlobalScope.launch {

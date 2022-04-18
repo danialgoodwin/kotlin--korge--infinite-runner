@@ -1,6 +1,6 @@
 package models
 
-enum class GameStatus {
+enum class GameStatusV1 {
     NOT_STARTED,
     RUNNING,
     FINISHED,

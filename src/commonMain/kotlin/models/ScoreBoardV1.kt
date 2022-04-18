@@ -7,14 +7,14 @@ import com.soywiz.korge.view.addFixedUpdater
 import com.soywiz.korge.view.text
 import com.soywiz.korge.view.xy
 
-class ScoreBoard(private val game: GameManager) : Container() {
+class ScoreBoardV1(private val game: GameManagerV1) : Container() {
     private var score: Int = 0;
     private var scoreView: Text = text("SCORE $score").xy(10.0, 10.0)
 
     init {
         addChild(scoreView)
         addFixedUpdater(2.timesPerSecond) {
-            if (game.status == GameStatus.RESTARTED) {
+            if (game.status == GameStatusV1.RESTARTED) {
                 restartScore()
             } else if (game.isRunning) {
                 updateScore()

@@ -6,10 +6,10 @@ suspend fun main() = Korge(Korge.Config(module = MainModule))
 
 object MainModule : Module() {
 
-    override val mainScene = MainScene::class
+    override val mainScene = MainSceneV1::class
 
     override suspend fun AsyncInjector.configure() {
-        mapPrototype { MainScene() }
+        mapPrototype { MainSceneV1() }
     }
 
 }

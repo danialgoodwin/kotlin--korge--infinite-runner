@@ -7,28 +7,28 @@ import com.soywiz.korge.view.centerOnStage
 import com.soywiz.korge.view.text
 import com.soywiz.korio.async.delay
 
-class GameManager(private val container: Container) {
+class GameManagerV1(private val container: Container) {
 
     var isRunning = false
-    var status = GameStatus.NOT_STARTED
+    var status = GameStatusV1.NOT_STARTED
     private var message: Text? = null
     private var gameOverMessage: Text? = null
 
     fun start() {
         isRunning = true
-        status = GameStatus.RUNNING
+        status = GameStatusV1.RUNNING
     }
 
     fun finish() {
         isRunning = false
-        status = GameStatus.FINISHED
+        status = GameStatusV1.FINISHED
         if (message == null && gameOverMessage == null) {
             displayGameOverMessage()
         }
     }
 
     suspend fun restart() {
-        status = GameStatus.RESTARTED
+        status = GameStatusV1.RESTARTED
         removeGameOverMessage()
         delay(TimeSpan(500.0))
         start()
